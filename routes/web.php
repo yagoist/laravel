@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\IndexController as AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::group(['prefix' => 'admin'], static function() {
+   Route::get('/', AdminController::class)
+   ->name('admin.index');
+});
 
 Route::get('/news', [NewsController::class, 'index'])
     ->name('news');
